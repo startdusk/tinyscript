@@ -12,10 +12,12 @@ func TestNextToken(t *testing.T) {
 		expectedLiteral string
 	}
 	tests := []struct {
+		name    string
 		input   string
 		expects []expect
 	}{
 		{
+			name:  "simple1",
 			input: "=+(){},;",
 			expects: []expect{
 				{token.ASSIGN, "="},
@@ -30,6 +32,7 @@ func TestNextToken(t *testing.T) {
 			},
 		},
 		{
+			name:  "simple2",
 			input: "{},;",
 			expects: []expect{
 				{token.LBRACE, "{"},
@@ -40,6 +43,7 @@ func TestNextToken(t *testing.T) {
 			},
 		},
 		{
+			name: "complex1",
 			input: `
 			let five = 5;
 			let ten = 10;
@@ -122,6 +126,7 @@ func TestNextToken(t *testing.T) {
 			},
 		},
 		{
+			name: "complex2",
 			input: `let five = 5;
 			let ten = 10;
 			let add = fn(x, y) {
@@ -186,7 +191,7 @@ func TestNextToken(t *testing.T) {
 
 	for _, tt := range tests {
 		l := New(tt.input)
-		t.Run(tt.input, func(t *testing.T) {
+		t.Run(tt.name, func(t *testing.T) {
 			for i, expect := range tt.expects {
 				tok := l.NextToken()
 				if tok.Type != expect.expectedType {
