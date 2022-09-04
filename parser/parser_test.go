@@ -287,3 +287,5 @@ func testIntegerLiteral(t *testing.T, il ast.Expression, value int64) bool {
 	}
 	return true
 }
+
+func TestParsingInfixExpressions(t *testing.T) {}
