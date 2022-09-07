@@ -9,3 +9,12 @@ fmt:
 .PHONY: test
 test: fmt
 	@go test -v ./...
+
+.PHONY: start
+start: clean
+	@go build ./cmd/... && ./tinyscript
+
+.PHONY: clean
+clean:
+	@rm -rf ./tinyscript
+
