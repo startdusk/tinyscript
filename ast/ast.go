@@ -257,10 +257,12 @@ func (bs *BlockStatement) String() string {
 
 func (bs *BlockStatement) statementNode() {}
 
+// ============================================================================
+// function literal
 type FunctionLiteral struct {
-	Token     token.Token // The 'fn' token
+	Token      token.Token // The 'fn' token
 	Parameters []*Identifier
-	Body      *BlockStatement
+	Body       *BlockStatement
 }
 
 func (fl *FunctionLiteral) expressionNode() {
@@ -284,5 +286,32 @@ func (fl *FunctionLiteral) String() string {
 	out.WriteString(") ")
 	out.WriteString(fl.Body.String())
 
+	return out.String()
+}
+
+// ============================================================================
+// call expression
+type CallExpression struct {
+	Token     token.Token // The '(' token
+	Function  Expression
+	Arguments []Expression
+}
+
+func (ce *CallExpression) expressionNode() {}
+
+func (ce *CallExpression) TokenLiteral() string { return ce.Token.Literal }
+
+func (ce *CallExpression) String() string {
+	var out bytes.Buffer
+
+	var args []string
+	for _, a := range ce.Arguments {
+		args = append(args, a.String())
+	}
+
+	out.WriteString(ce.Function.String())
+	out.WriteString("(")
+	out.WriteString(strings.Join(args, ", "))
+	out.WriteString(")")
 	return out.String()
 }
