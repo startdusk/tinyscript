@@ -15,7 +15,7 @@ func main() {
 	}
 
 	fmt.Printf(`
-Hello %s! This is the Monkey programing language!
+Hello %s! This is the Typescript programing language!
 Feel free to type in command
 `,
 		user.Username)
