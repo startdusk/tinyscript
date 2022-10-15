@@ -3,8 +3,11 @@ run: test
 	@go run ./cmd/tinyscript/main.go
 
 .PHONY: fmt
-fmt:
+fmt: vet
 	@go fmt ./... 
+.PHONY: vet
+vet:
+	@go vet ./...
 
 .PHONY: test
 test: fmt
