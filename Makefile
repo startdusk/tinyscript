@@ -21,3 +21,7 @@ start: clean
 clean:
 	@rm -rf ./tinyscript
 
+.PHONY: codeline
+codeline:
+	@tokei .
+
